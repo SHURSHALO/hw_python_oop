@@ -1,4 +1,7 @@
 
+from typing import Dict, Type
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -51,7 +54,8 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return InfoMessage(type(self).__name__, self.duration,
+        training_type: str = type(self).__name__
+        return InfoMessage(training_type, self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
                            self.get_spent_calories())
@@ -61,13 +65,6 @@ class Running(Training):
     """Тренировка: бег."""
     CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
     CALORIES_MEAN_SPEED_SHIFT: float = 1.79
-
-    def __init__(self,
-                 action: float,
-                 duration: float,
-                 weight: float,
-                 ) -> None:
-        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         return (
@@ -140,11 +137,19 @@ class Swimming(Training):
         )
 
 
+WORKOUT_CLASS: Dict[str, Type[Training]] = {'SWM': Swimming,
+                                            'RUN': Running,
+                                            'WLK': SportsWalking}
+
+
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    workout_class = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
-
-    return workout_class[workout_type](*data)
+    if workout_type not in WORKOUT_CLASS:
+        raise NotImplementedError('Неизвестный тип тренировки:',
+                                  workout_type)
+    # https://pythonz.net/references/named/notimplementederror/
+    workout_class = WORKOUT_CLASS[workout_type]
+    return workout_class(*data)
 
 
 def main(training: Training) -> None:
