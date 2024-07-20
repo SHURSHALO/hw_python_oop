@@ -19,7 +19,4 @@
    python3 -m venv env
    source venv/Scripts/activate
 
-# Запуск
-
-python homework.py
-
+4. Запуск python homework.py
