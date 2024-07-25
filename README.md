@@ -7,17 +7,21 @@
 # Установка
 
 1. Клонируйте репозиторий на свою локальную машину:
-
-   git clone git@github.com:SHURSHALO/hw_python_oop.git
-
-2. Перейдите в директорию проекта:
-
-   cd hw_python_oop
-
-3. Создайте и активируйте виртуальное окружение (опционально):
-
-   python3 -m venv env
-   source venv/Scripts/activate
-
+```
+git clone git@github.com:SHURSHALO/hw_python_oop.git
+```
+3. Перейдите в директорию проекта:
+```
+cd hw_python_oop
+```
+4. Создайте и активируйте виртуальное окружение (опционально):
+```
+py -3.9 -m venv venv
+```
+```
+source venv/Scripts/activate
+```
 ### Запуск
+```
 python homework.py
+```
